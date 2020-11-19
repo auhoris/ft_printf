@@ -14,7 +14,7 @@ SRC	= ft_printf.c \
 
 OBJ	= $(SRC:.c=.o)
 
-LIBFT	= libft
+LIBFT	= libft/
 
 L_COMP	= libft.a
 
@@ -32,11 +32,11 @@ RM	= rm -f
 	$(CC) $(CFLAGS) -c $< -o $@ -I $(HDR)
 
 $(NAME): $(OBJ)
-	cd $(LIBFT) && $(MAKE)
-	cp $(LIBFT)/$(L_COMP) .
-	mv $(L_COMP) $(NAME)
-	ar rc $(NAME) $(OBJ)
-	ranlib $(NAME)
+	@make -C $(LIBFT)
+	@cp $(LIBFT)$(L_COMP) .
+	@mv $(L_COMP) $(NAME)
+	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
 
 all:	$(NAME)
 
@@ -44,11 +44,11 @@ bonus:	all
 
 clean:
 	$(RM) $(OBJ)
-	cd $(LIBFT) && $(MAKE) clean
+	@make -C $(LIBFT) clean
 
 fclean:	clean
 	$(RM) $(NAME)
-	cd $(LIBFT) && $(MAKE) fclean
+	@make -C $(LIBFT) fclean
 
 re:	fclean all
 

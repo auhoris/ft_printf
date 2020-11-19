@@ -19,7 +19,7 @@ static char	*ft_treat_prec(t_args *par, char *str)
 
 	if (str[0] == '0' && par->prec == 0)
 		return ("0x");
-	if (str == NULL  && par->prec != 0)
+	if (str == NULL && par->prec != 0)
 		str = "0";
 	str_len = ft_strlen(str) + ft_strlen("0x");
 	filler = malloc(sizeof(*filler) * (str_len + 1));
@@ -33,7 +33,7 @@ static char	*ft_treat_prec(t_args *par, char *str)
 static char	*ft_treat_width(t_args *par, char *str)
 {
 	char	*filler;
-	int	str_len;
+	int		str_len;
 	char	gap;
 
 	gap = ' ';
@@ -53,7 +53,7 @@ static char	*ft_treat_width(t_args *par, char *str)
 	return (filler);
 }
 
-int	ft_disp_p(t_args *par)
+int			ft_disp_p(t_args *par)
 {
 	char	*str;
 

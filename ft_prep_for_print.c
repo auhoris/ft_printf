@@ -6,7 +6,7 @@
 /*   By: auhoris <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 14:54:24 by auhoris           #+#    #+#             */
-/*   Updated: 2020/11/18 12:59:01 by auhoris          ###   ########.fr       */
+/*   Updated: 2020/11/19 12:51:17 by auhoris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ft_prep_int(t_args *par)
 {
-	char		*str;
-	long long	n;
+	char			*str;
+	long long int	n;
 
 	str = NULL;
 	if (par->len_mod == OFF)

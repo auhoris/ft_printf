@@ -24,7 +24,7 @@ static char	*ft_treat_prec(t_args *par, char *str)
 
 static char	*ft_treat_width(t_args *par, char *str)
 {
-	int	str_len;
+	int		str_len;
 	char	*filler;
 
 	str_len = ft_strlen(str);
@@ -40,7 +40,7 @@ static char	*ft_treat_width(t_args *par, char *str)
 	return (str);
 }
 
-int	ft_disp_str(t_args *par)
+int			ft_disp_str(t_args *par)
 {
 	char	*str;
 

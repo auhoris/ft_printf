@@ -14,7 +14,7 @@
 
 static char	*ft_treat_prec(t_args *par, char *str)
 {
-	int	str_len;
+	int		str_len;
 	char	*filler;
 
 	if (str[0] == '0' && par->prec == 0)
@@ -31,7 +31,7 @@ static char	*ft_treat_prec(t_args *par, char *str)
 
 static char	*ft_treat_width(t_args *par, char *str)
 {
-	int	str_len;
+	int		str_len;
 	char	gap;
 	char	*filler;
 
@@ -57,7 +57,7 @@ static char	*ft_treat_width(t_args *par, char *str)
 	return (filler);
 }
 
-int	ft_disp_int(t_args *par, char *str)
+int			ft_disp_int(t_args *par, char *str)
 {
 	str = ft_check_sign(par, str);
 	if ((str = ft_treat_prec(par, str)) == NULL

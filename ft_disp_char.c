@@ -25,7 +25,7 @@ static char	*ft_fill_space(t_args *par)
 	return (fill);
 }
 
-int		ft_disp_char(t_args *par)
+int			ft_disp_char(t_args *par)
 {
 	char	c;
 	char	*fill;

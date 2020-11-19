@@ -49,11 +49,11 @@ static int		ft_abs(long long n)
 
 char			*ft_itoa_ll(long long n)
 {
-	int		nbr_len;
+	int			nbr_len;
 	char		*p_res;
-	int		i;
+	int			i;
 	long long	sign;
-	int		plus;
+	int			plus;
 
 	plus = 1;
 	nbr_len = ft_nbr_len(n);

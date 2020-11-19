@@ -15,7 +15,7 @@
 static char	*ft_treat_width(t_args *par, char *str)
 {
 	char	*filler;
-	int	str_len;
+	int		str_len;
 	char	gap;
 
 	gap = ' ';
@@ -33,7 +33,7 @@ static char	*ft_treat_width(t_args *par, char *str)
 	return (filler);
 }
 
-int		ft_disp_percent(t_args *par)
+int			ft_disp_percent(t_args *par)
 {
 	char	*str;
 

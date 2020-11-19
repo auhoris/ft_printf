@@ -6,7 +6,7 @@
 /*   By: auhoris <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 15:08:54 by auhoris           #+#    #+#             */
-/*   Updated: 2020/11/18 12:57:32 by auhoris          ###   ########.fr       */
+/*   Updated: 2020/11/19 12:50:27 by auhoris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	ft_parse_len_mod(t_args *par)
 {
 	if (!ft_inset(LEN_MOD, par->f_cpy[par->read]))
 		return ;
-	par->len_mod = ON;
+	par->len_mod = 0;
 	while (ft_inset(LEN_MOD, par->f_cpy[par->read]))
 	{
 		par->len_mod += par->f_cpy[par->read];
@@ -85,7 +85,7 @@ static void	ft_parse_len_mod(t_args *par)
 	}
 }
 
-int		ft_start_parsing(t_args *par)
+int			ft_start_parsing(t_args *par)
 {
 	if (par->format[par->read] == '\0')
 		return (ERROR);

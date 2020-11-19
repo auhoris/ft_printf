@@ -6,7 +6,7 @@
 /*   By: auhoris <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 14:51:51 by auhoris           #+#    #+#             */
-/*   Updated: 2020/11/18 12:58:13 by auhoris          ###   ########.fr       */
+/*   Updated: 2020/11/19 12:43:48 by auhoris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	ft_start_process(t_args *par)
 	return (par->printed);
 }
 
-int		ft_printf(char *format, ...)
+int			ft_printf(char *format, ...)
 {
 	t_args	*par;
 

@@ -15,8 +15,8 @@
 char	*ft_strndup(char *src, int n)
 {
 	char	*dup;
-	int	min_len;
-	int	i;
+	int		min_len;
+	int		i;
 
 	min_len = ((int)ft_strlen(src) < n) ? ft_strlen(src) : n;
 	dup = malloc(sizeof(*dup) * (min_len + 1));

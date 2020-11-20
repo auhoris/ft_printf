@@ -6,7 +6,7 @@
 /*   By: auhoris <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 15:08:54 by auhoris           #+#    #+#             */
-/*   Updated: 2020/11/19 12:50:27 by auhoris          ###   ########.fr       */
+/*   Updated: 2020/11/20 12:06:16 by auhoris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static void	ft_parse_width(t_args *par)
 	{
 		copy = ft_strdup(&par->f_cpy[par->read]);
 		par->width = ft_atoi(copy);
+		if (copy != NULL)
+			free(copy);
 		while (IS_NUM(par->f_cpy[par->read]))
 			par->read++;
 	}
@@ -66,6 +68,8 @@ static void	ft_parse_prec(t_args *par)
 	{
 		copy = ft_strdup(&par->f_cpy[par->read]);
 		par->prec = ft_atoi(copy);
+		if (copy != NULL)
+			free(copy);
 		while (IS_NUM(par->f_cpy[par->read]))
 			par->read++;
 	}

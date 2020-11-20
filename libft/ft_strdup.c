@@ -6,7 +6,7 @@
 /*   By: auhoris <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 14:14:23 by auhoris           #+#    #+#             */
-/*   Updated: 2020/10/31 17:02:20 by auhoris          ###   ########.fr       */
+/*   Updated: 2020/11/20 17:19:52 by auhoris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strdup(const char *s1)
 	size_t	len;
 	size_t	i;
 
+	if (s1 == NULL)
+		return (NULL);
 	len = ft_strlen(s1);
 	p_s1 = malloc(sizeof(*p_s1) * (len + 1));
 	if (p_s1 == 0)

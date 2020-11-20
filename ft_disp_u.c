@@ -6,29 +6,32 @@
 /*   By: auhoris <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 14:21:01 by auhoris           #+#    #+#             */
-/*   Updated: 2020/11/17 21:26:20 by auhoris          ###   ########.fr       */
+/*   Updated: 2020/11/20 16:46:26 by auhoris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static char	*ft_treat_prec(t_args *par, char *str)
+static char	*ft_treat_prec(t_args *par, t_fill *fill, char *to_print)
 {
 	int		str_len;
-	char	*filler;
 
-	if (str[0] == '0' && par->prec == 0)
+	if (par->prec >= 0)
+		par->zero_f = OFF;
+	if (to_print[0] == '0')
+		par->hex_f = 0;
+	if (to_print[0] == '0' && par->prec == 0)
 		return ("");
-	if (str[0] == '0')
+	if (to_print[0] == '0')
 		par->hex_f = ZERO;
-	str_len = (int)ft_strlen(str);
+	str_len = (int)ft_strlen(to_print);
 	if (par->prec <= str_len)
-		return (str);
-	filler = ft_make_filler(par->prec, '0');
-	if (filler == NULL)
+		return (to_print);
+	fill->prec = ft_make_filler(par->prec, '0');
+	if (fill->prec == NULL)
 		return (NULL);
-	ft_strncpy(&filler[par->prec - str_len], str, str_len);
-	return (filler);
+	ft_strncpy(&fill->prec[par->prec - str_len], to_print, str_len);
+	return (fill->prec);
 }
 
 static char	*ft_treat_hex(t_args *par, char *filler, int str_len)
@@ -48,35 +51,45 @@ static char	*ft_treat_hex(t_args *par, char *filler, int str_len)
 	return (filler);
 }
 
-static char	*ft_treat_width(t_args *par, char *str)
+static char	*ft_treat_width(t_args *par, t_fill *fill, char *to_print)
 {
-	char	*filler;
 	int		str_len;
 	char	gap;
 
 	gap = ' ';
-	str_len = (int)ft_strlen(str);
-	if (par->width <= str_len && par->hex_f == OFF)
-		return (str);
+	str_len = (int)ft_strlen(to_print);
+	if (par->width <= str_len && par->hex_f == 0)
+		return (to_print);
 	else if (par->width < str_len + par->hex_f)
 		par->width = str_len + par->hex_f;
 	if (par->zero_f == ON && par->prec == OFF && par->left_align == OFF)
 		gap = '0';
-	if (!(filler = ft_make_filler(par->width, gap)))
+	if (!(fill->width = ft_make_filler(par->width, gap)))
 		return (NULL);
-	filler = ft_treat_hex(par, filler, str_len);
+	fill->width = ft_treat_hex(par, fill->width, str_len);
 	if (par->left_align == ON)
-		ft_strncpy(&filler[par->hex_f], str, str_len);
+		ft_strncpy(&fill->width[par->hex_f], to_print, str_len);
 	else
-		ft_strncpy(&filler[par->width - str_len], str, str_len);
-	return (filler);
+		ft_strncpy(&fill->width[par->width - str_len], to_print, str_len);
+	return (fill->width);
 }
 
-int			ft_disp_u(t_args *par, char *str)
+int			ft_disp_u(t_args *par)
 {
-	if ((str = ft_treat_prec(par, str)) == NULL
-			|| (str = ft_treat_width(par, str)) == NULL)
+	t_fill	*fill;
+	char	*to_print;
+
+	to_print = par->res;
+	fill = ft_init_fill();
+	if ((to_print = ft_treat_prec(par, fill, to_print)) == NULL
+			|| (to_print = ft_treat_width(par, fill, to_print)) == NULL)
+	{
+		free_filler(fill);
+		free(par->res);
 		return (ERROR);
-	par->printed += ft_putstr(str);
+	}
+	par->printed += ft_putstr(to_print);
+	free(par->res);
+	free_filler(fill);
 	return (0);
 }

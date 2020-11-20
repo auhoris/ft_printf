@@ -6,7 +6,7 @@
 /*   By: auhoris <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 14:51:51 by auhoris           #+#    #+#             */
-/*   Updated: 2020/11/19 12:43:48 by auhoris          ###   ########.fr       */
+/*   Updated: 2020/11/20 12:31:07 by auhoris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static void	ft_init_args(t_args *par)
 	par->sign = '\0';
 	par->len_mod = OFF;
 	par->filler = ' ';
+	par->res = "\0";
 }
 
 static int	ft_start_process(t_args *par)
@@ -84,5 +85,6 @@ int			ft_printf(char *format, ...)
 			return (ERROR);
 		va_end(par->ap);
 	}
+	free(par);
 	return (par->printed);
 }

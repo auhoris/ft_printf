@@ -6,61 +6,68 @@
 /*   By: auhoris <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 15:34:20 by auhoris           #+#    #+#             */
-/*   Updated: 2020/11/17 19:52:02 by auhoris          ###   ########.fr       */
+/*   Updated: 2020/11/20 16:41:28 by auhoris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static char	*ft_treat_prec(t_args *par, char *str)
+static char	*ft_treat_prec(t_args *par, t_fill *fill, char *to_print)
 {
 	size_t	str_len;
-	char	*filler;
 
-	if (str[0] == '0' && par->prec == 0)
+	if (to_print[0] == '0' && par->prec == 0)
 		return ("0x");
-	if (str == NULL && par->prec != 0)
-		str = "0";
-	str_len = ft_strlen(str) + ft_strlen("0x");
-	filler = malloc(sizeof(*filler) * (str_len + 1));
-	if (filler == NULL)
+	if (to_print == NULL && par->prec != 0)
+		to_print = "0";
+	str_len = ft_strlen(to_print) + ft_strlen("0x");
+	fill->prec = malloc(sizeof(char) * (str_len + 1));
+	if (fill->prec == NULL)
 		return (NULL);
-	ft_strncpy(filler, "0x", 2);
-	ft_strncpy(&filler[2], str, str_len);
-	return (filler);
+	ft_strncpy(fill->prec, "0x", 2);
+	ft_strncpy(&fill->prec[2], to_print, str_len);
+	return (fill->prec);
 }
 
-static char	*ft_treat_width(t_args *par, char *str)
+static char	*ft_treat_width(t_args *par, t_fill *fill, char *to_print)
 {
-	char	*filler;
 	int		str_len;
 	char	gap;
 
 	gap = ' ';
-	str_len = (int)ft_strlen(str);
-	if (str == NULL && par->prec == 0)
+	str_len = (int)ft_strlen(to_print);
+	if (to_print == NULL && par->prec == 0)
 		return ("0x");
 	if (par->width <= str_len)
-		return (str);
+		return (to_print);
 	if (par->zero_f == ON)
-		return (str);
-	if (!(filler = ft_make_filler(par->width, gap)))
+		return (to_print);
+	if (!(fill->width = ft_make_filler(par->width, gap)))
 		return (NULL);
 	if (par->left_align == ON)
-		ft_strncpy(filler, str, str_len);
+		ft_strncpy(fill->width, to_print, str_len);
 	else
-		ft_strncpy(&filler[par->width - str_len], str, str_len);
-	return (filler);
+		ft_strncpy(&fill->width[par->width - str_len], to_print, str_len);
+	return (fill->width);
 }
 
 int			ft_disp_p(t_args *par)
 {
-	char	*str;
+	t_fill	*fill;
+	char	*to_print;
 
-	str = ft_itoa_u_base("0123456789abcdef", va_arg(par->ap, long long));
-	if ((str = ft_treat_prec(par, str)) == NULL
-			|| (str = ft_treat_width(par, str)) == NULL)
+	par->res = ft_itoa_u_base("0123456789abcdef", va_arg(par->ap, long long));
+	fill = ft_init_fill();
+	to_print = par->res;
+	if ((to_print = ft_treat_prec(par, fill, to_print)) == NULL
+			|| (to_print = ft_treat_width(par, fill, to_print)) == NULL)
+	{
+		free_filler(fill);
+		free(par->res);
 		return (ERROR);
-	par->printed += ft_putstr(str);
+	}
+	par->printed += ft_putstr(to_print);
+	free_filler(fill);
+	free(par->res);
 	return (0);
 }

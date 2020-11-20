@@ -6,7 +6,7 @@
 /*   By: auhoris <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 14:54:24 by auhoris           #+#    #+#             */
-/*   Updated: 2020/11/19 12:51:17 by auhoris          ###   ########.fr       */
+/*   Updated: 2020/11/20 17:42:31 by auhoris          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,18 @@ int	ft_prep_int(t_args *par)
 	else
 		return (ERROR);
 	if (par->len_mod == 'l' || par->len_mod == 'l' + 'l')
-		str = ft_itoa_ll(n);
+		par->res = ft_itoa_ll(n);
 	else
-		str = ft_itoa(n);
-	if (str == NULL)
+		par->res = ft_itoa(n);
+	if (par->res == NULL)
 		return (ERROR);
-	return (ft_disp_int(par, str));
+	return (ft_disp_int(par));
 }
 
 int	ft_prep_u(t_args *par)
 {
-	char	*str;
 	size_t	n;
 
-	str = NULL;
 	if (par->len_mod == OFF)
 		n = va_arg(par->ap, unsigned int);
 	else if (par->len_mod == 'l')
@@ -58,12 +56,12 @@ int	ft_prep_u(t_args *par)
 	else
 		return (ERROR);
 	if (par->f_cpy[par->read] == 'x')
-		str = ft_itoa_u_base("0123456789abcdef", n);
+		par->res = ft_itoa_u_base("0123456789abcdef", n);
 	else if (par->f_cpy[par->read] == 'X')
-		str = ft_itoa_u_base("0123456789ABCDEF", n);
+		par->res = ft_itoa_u_base("0123456789ABCDEF", n);
 	else if (par->f_cpy[par->read] == 'u')
-		str = ft_itoa_u_base("0123456789", n);
-	if (str == NULL)
+		par->res = ft_itoa_u_base("0123456789", n);
+	if (par->res == NULL)
 		return (ERROR);
-	return (ft_disp_u(par, str));
+	return (ft_disp_u(par));
 }
